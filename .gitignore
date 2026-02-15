@@ -1,0 +1,65 @@
+# ======================
+# Python
+# ======================
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.env
+.venv/
+venv/
+ENV/
+
+# ======================
+# FastAPI / Backend
+# ======================
+backend/.env
+backend/app/db/*.sqlite3
+backend/app/db/*.db
+
+# ======================
+# ML / Data
+# ======================
+ml_models/data/
+ml_models/trained_models/
+*.pkl
+*.h5
+*.joblib
+
+# ======================
+# Jupyter
+# ======================
+.ipynb_checkpoints/
+
+# ======================
+# Logs
+# ======================
+*.log
+logs/
+
+# ======================
+# Node / Frontend
+# ======================
+node_modules/
+dist/
+build/
+.env.local
+.env.development
+.env.production
+
+# ======================
+# Docker
+# ======================
+*.tar
+
+# ======================
+# OS
+# ======================
+.DS_Store
+Thumbs.db
+
+# ======================
+# IDEs
+# ======================
+.vscode/
+.idea/
