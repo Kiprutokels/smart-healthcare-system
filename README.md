@@ -236,7 +236,7 @@ This project is part of academic research at Maasai Mara University.
 ## 👨‍💻 Author
 **Festus Kipyegon**
 - Reg No: SB06/JR/MN/14056/2022
-- Supervisor
+- Supervisor: Dr. Okemwa
 - Department: Computing and Information Sciences
 
 ## 📧 Support
@@ -244,6 +244,6 @@ For issues and questions, please open an issue on GitHub or contact the developm
 
 ## 🙏 Acknowledgments
 - Maasai Mara University
-- Dr. Okemwa (Project Supervisor)
+- Project Supervisor
 - Kaggle community for datasets
 - Open-source contributors
