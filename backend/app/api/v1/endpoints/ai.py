@@ -30,6 +30,7 @@ from app.schemas.ai import (
 from app.services.ai.noshow_predictor import no_show_predictor
 from app.services.ai.priority_classifier import priority_classifier
 from app.services.ai.waittime_estimator import wait_time_estimator
+from backend.app.core.internal_auth import verify_internal_api_key
 
 router = APIRouter(prefix="/ai", tags=["AI Services"])
 
@@ -52,7 +53,7 @@ def _time_of_day_from_hour(hour: int) -> str:
 @router.post("/predict-noshow", response_model=NoShowPredictionResponse)
 def predict_no_show(
     request: NoShowPredictionRequest,
-    current_user: User = Depends(get_current_user),
+    _: str = Depends(verify_internal_api_key),
     db: Session = Depends(get_db),
 ):
     """
@@ -98,7 +99,7 @@ def predict_no_show(
 @router.post("/estimate-wait-time", response_model=WaitTimePredictionResponse)
 def estimate_wait_time(
     request: WaitTimePredictionRequest,
-    current_user: User = Depends(get_current_user),
+    _: str = Depends(verify_internal_api_key),
     db: Session = Depends(get_db),
 ):
     """
@@ -143,7 +144,7 @@ def estimate_wait_time(
 @router.post("/classify-priority", response_model=PriorityClassificationResponse)
 def classify_priority(
     request: PriorityClassificationRequest,
-    current_user: User = Depends(get_current_user),
+    _: str = Depends(verify_internal_api_key),
     db: Session = Depends(get_db),
 ):
     """
@@ -171,7 +172,7 @@ def classify_priority(
 @router.post("/optimize-queue", response_model=QueueOptimizationResponse)
 def optimize_queue(
     request: QueueOptimizationRequest,
-    current_user: User = Depends(get_current_user),
+    _: str = Depends(verify_internal_api_key),
     db: Session = Depends(get_db),
 ):
     """
@@ -260,7 +261,7 @@ def optimize_queue(
 @router.post("/batch-predict", response_model=BatchPredictionResponse)
 def batch_predict(
     request: BatchPredictionRequest,
-    current_user: User = Depends(get_current_user),
+    _: str = Depends(verify_internal_api_key),
     db: Session = Depends(get_db),
 ):
     """
