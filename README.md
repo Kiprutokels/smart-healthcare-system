@@ -236,7 +236,7 @@ This project is part of academic research at Maasai Mara University.
 ## 👨‍💻 Author
 **Festus Kipyegon**
 - Reg No: SB06/JR/MN/14056/2022
-- Supervisor: Dr. Okemwa
+- Supervisor
 - Department: Computing and Information Sciences
 
 ## 📧 Support
