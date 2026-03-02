@@ -11,7 +11,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy import func
 from sqlalchemy.orm import Session
 
-from app.core.security import get_current_user
+from app.core.internal_auth import verify_internal_api_key  # ✅ fixed import
 from app.db.session import get_db
 from app.models.appointment import Appointment, AppointmentStatus
 from app.models.user import User
@@ -30,7 +30,6 @@ from app.schemas.ai import (
 from app.services.ai.noshow_predictor import no_show_predictor
 from app.services.ai.priority_classifier import priority_classifier
 from app.services.ai.waittime_estimator import wait_time_estimator
-from backend.app.core.internal_auth import verify_internal_api_key
 
 router = APIRouter(prefix="/ai", tags=["AI Services"])
 
@@ -104,7 +103,6 @@ def estimate_wait_time(
 ):
     """
     Estimate wait time.
-    
     """
     if request.current_queue_length is None:
         request.current_queue_length = (
@@ -123,7 +121,6 @@ def estimate_wait_time(
             .count()
         )
 
-    # If caller passed junk/blank strings for these, normalize
     if not request.time_of_day:
         request.time_of_day = _time_of_day_from_hour(request.appointment_date.hour)
     if not request.day_of_week:
@@ -178,9 +175,6 @@ def optimize_queue(
     """
     Optimize appointment queue based on AI predictions
     """
-    if current_user.role not in ["doctor", "nurse", "admin"]:
-        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Not authorized to optimize queue")
-
     query = db.query(Appointment).filter(
         func.date(Appointment.appointment_date) == request.date.date(),
         Appointment.status.in_([AppointmentStatus.SCHEDULED, AppointmentStatus.CONFIRMED]),
@@ -318,7 +312,7 @@ def batch_predict(
 @router.get("/health")
 def check_ai_service_health():
     """
-    Check if AI services are loaded and healthy
+    Check if AI services are loaded and healthy — no auth required
     """
     return {
         "no_show_predictor": no_show_predictor.model is not None,
